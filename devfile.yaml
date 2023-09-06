@@ -1,0 +1,20 @@
+schemaVersion: 2.0.0
+metadata:
+  name: devenv
+components:
+  - name: devenv
+    container:
+      image: public.ecr.aws/docker/library/maven:3.9.4-amazoncorretto-8
+      mountSources: true
+      command:
+        - sleep
+        - infinity
+commands:
+  - id: install
+    exec:
+      component: devenv
+      commandLine: mvn clean install package
+      workingDir: /projects/spring-boot-application-example
+events:
+  postStart:
+    - install
